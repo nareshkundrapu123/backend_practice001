@@ -18,4 +18,39 @@ const validationSignupData=(req)=>{
     
 };
 
-module.exports={validationSignupData};
+
+const validationprofile=(req)=>{
+    const allowededitfield=[
+        "firstName",
+        "lastName",
+        "emailId",
+        "photoUrl",
+        "about",
+        "skills"
+    ];
+
+    const isEditAllowed =Object.keys(req.body).every((field)=>
+        allowededitfield.includes(field)
+    );
+
+    return isEditAllowed;
+}   
+
+const forgetpassword =(req)=>{
+
+    const allowededitfield1=[
+        "emailId",
+        "password"
+    ];
+    const isEditpassword =Object.keys(req.body).every((field)=>
+        isEditpassword.includes(field)
+);
+
+return isEditpassword;
+
+}
+
+module.exports={validationSignupData,
+            validationprofile,
+            forgetpassword
+    };
