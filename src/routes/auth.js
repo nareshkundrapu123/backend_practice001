@@ -68,7 +68,7 @@ authRouter.post('/login',async(req,res)=>{
             res.cookie("naresh",token,{expires: new Date(Date.now()+ 8*3600000),});
 
 
-            res.send("login successfull!!!");
+            res.send(user);
            // console.log(password);
             //console.log(isPasswordvalid);
         }else{
@@ -90,7 +90,7 @@ authRouter.post('/logout', async(req,res) =>{
         expires:new Date(Date.now()),
     })
 
-    res.send("logout success");
+    res.send(user);
 });
 
 

@@ -2,10 +2,16 @@ const express = require('express');
 const app=express();
 const dbconnect =require('./config/database');
 
-
+const cors=require('cors');
 
 const cookieparser=require('cookie-parser');
 
+app.use(cors(
+    {
+     origin:"http://localhost:5173",
+        credentials:true,  
+    }
+));
 app.use(express.json());
 app.use(cookieparser());
 
