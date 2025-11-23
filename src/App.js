@@ -6,12 +6,23 @@ const cors=require('cors');
 
 const cookieparser=require('cookie-parser');
 
-app.use(cors(
-    {
-     origin:"http://localhost:5173",
-        credentials:true,  
-    }
-));
+// app.use(cors(
+//     {
+//      origin:'*',
+//     credentials:true,  
+//     }
+// ));
+
+const allowedOrigins = ['http://localhost:5173','http://localhost:5174'];
+
+app.use(cors({
+  origin: "http://localhost:5173",   // your frontend URL
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+
 app.use(express.json());
 app.use(cookieparser());
 

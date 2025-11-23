@@ -6,7 +6,7 @@ const User = require('../models/User');
 
 const requestRouter=express.Router();
 
-const UserSafeData= "firstName lastName emailId photoUrl skills";
+const UserSafeData= "firstName lastName emailId photoUrl skills about";
 
 requestRouter.post("/request/send/:status/:toUserId",userAuth, async(req,res)=>{
 

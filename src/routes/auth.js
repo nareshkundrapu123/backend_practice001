@@ -29,11 +29,11 @@ authRouter.post('/signup', async (req,res)=>{
 
        
        //  console.log(passwordhash);
-    await user.save();
-    res.send('User signed up successfully'+user);
+   const saveduser= await user.save();
+    res.send('User signed up successfully'+saveduser);
     }
     catch(err){
-        res.status(400).send("error saving the user "+ err.message);
+        res.status(400).json({error: err.message});
     }
 
 
@@ -68,17 +68,19 @@ authRouter.post('/login',async(req,res)=>{
             res.cookie("naresh",token,{expires: new Date(Date.now()+ 8*3600000),});
 
 
-            res.send(user);
+            res.status(200).json({status:true, message: 'logged in successfully', user:user});
            // console.log(password);
             //console.log(isPasswordvalid);
         }else{
-            throw new Error("password id not correct");
+            throw new Error("password mismatch");
+
         }
 
     }
 
      catch(err){
-        res.status(400).send("error saving the user "+ err.message);
+        // res.status(400).send("Error :"+ err.message);
+        res.status(400).json({status: false, message: err.message});
     }
     
 
@@ -90,7 +92,7 @@ authRouter.post('/logout', async(req,res) =>{
         expires:new Date(Date.now()),
     })
 
-    res.send(user);
+    res.send("logged out successfully");
 });
 
 

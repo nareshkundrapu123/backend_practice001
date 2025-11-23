@@ -8,15 +8,17 @@ try{
     const {naresh}=req.cookies;
 
     if(!naresh){
-        return res.status(401).send("Please login");
+         return res.status(401).json({status:false, statusCode: 401, message:"Please login!!!..."});
     }
 
     const decodeobj= await jwt.verify(naresh,"Dev@tinder$1998");
     const {_id}=decodeobj;
     const user= await User.findById(_id);
+   
     if(!user)
     {
         throw new Error("User not found");
+         //console.log("what is error"+user);
     }
     req.user=user; 
     next(); 

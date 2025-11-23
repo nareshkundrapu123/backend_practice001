@@ -25,33 +25,34 @@ profileRouter.get("/profile/view",userAuth,async(req,res)=>{
 
 });
 
-profileRouter.patch("/profile/edit", userAuth, async(req,res)=>
-    {
+profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
+  try {
+    // ✅ validate input
+   if(!validationprofile) {
+    return res.status(400).json({ error: "Invalid profile data" });
+   }
 
-        try{
-            if(!validationprofile){
-                throw new Error("Invalid Edit request");
-            }
-            const loggedinuser=req.user;
-            
-           // console.log(loggedinuser);
-            Object.keys(req.body).forEach((key)=>(loggedinuser[key]=req.body[key])); 
+    const loggedinuser = req.user;
 
-            await loggedinuser.save();
+    // ✅ update fields properly
+    Object.keys(req.body).forEach((key) => {
+      loggedinuser[key] = req.body[key];
+    });
 
-            res.json({
-                message: `${loggedinuser.firstName}, profile update succesfull`,
-                data: loggedinuser,
-            })
-        }
-        catch(err){
-            res.status(400).send("ERROR : "+ err.message);
-        }
+   const saveduser= await loggedinuser.save();
 
-    
+    // ✅ ONLY ONE response, after update
+    res.status(200).json({
+      success: true,
+      user: saveduser,
+      message: "Profile updated successfully"
+    });
 
-
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
+
 
 profileRouter.patch("/profile/forgotpassword", async (req, res) => {
     try {
