@@ -25,7 +25,7 @@ profileRouter.get("/profile/view",userAuth,async(req,res)=>{
 
 });
 
-profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
+profileRouter.post("/profile/edit", userAuth, async (req, res) => {
   try {
     // ✅ validate input
    if(!validationprofile) {
@@ -54,7 +54,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
 });
 
 
-profileRouter.patch("/profile/forgotpassword", async (req, res) => {
+profileRouter.post("/profile/forgotpassword", async (req, res) => {
     try {
         const { emailId, password } = req.body;
 

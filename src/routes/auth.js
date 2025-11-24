@@ -68,7 +68,10 @@ authRouter.post('/login',async(req,res)=>{
             res.cookie("naresh",token,{expires: new Date(Date.now()+ 8*3600000),});
 
 
-            res.status(200).json({status:true, message: 'logged in successfully', user:user});
+            res.status(200).json({status:true, message: 'logged in successfully',
+                 user:user,
+                token:token
+            });
            // console.log(password);
             //console.log(isPasswordvalid);
         }else{
